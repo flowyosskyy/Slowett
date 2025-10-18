@@ -1,0 +1,110 @@
+l<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lirik Tante</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00fff6;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    #lirik {
+      font-size: 32px;
+      text-align: center;
+      white-space: pre-line;
+      text-shadow: 0 0 10px #00fff6, 0 0 20px #00fff6, 0 0 30px #00fff6;
+      opacity: 0;
+      transform: translateX(-100%);
+      animation: muncul 0.8s forwards;
+    }
+
+    @keyframes muncul {
+      to {
+        opacity:5 ;
+        transform: translateX(0);
+      }
+    }
+
+    #playBtn {
+      background: #00fff6;
+      border: none;
+      color: black;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 15px 40px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #00fff6;
+      transition: 0.3s;
+    }
+
+    #playBtn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #00fff6, 0 0 50px #00fff6;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button id="playBtn">🤙 Play Lagu</button>
+  <audio id="lagu" src="jaya.mp4"></audio>
+  <div id="lirik"></div>
+
+  <script>
+    const playBtn = document.getElementById("playBtn");
+    const lagu = document.getElementById("lagu");
+    const lirikList = [
+      "haiiiiiiiiiiiiiiiiiiiiiiiiii",
+      "temanku semua pada jahat tante",    
+      "aku lagi susah mereka gak ada",
+      "coba kalau lagi jayaaaaaaaa100×",
+      "aku dipuja puja tante",
+      "sudah terbiasa terjadi tante",
+      "teman datang ketika lagi butuh saja",
+      "coba kalau lagi susahhh",
+      "mereka semua menghilangggggggggg",
+      " Tante Tante SEBASA 🔥"
+    ];
+
+    const delayAntarLirik = [900,1000, 1400, 1300, 1000, 1050, 1000, 1000, 1000];
+    const container = document.getElementById("lirik");
+
+    async function tampilkanLirik() {
+      for (let i = 0; i < lirikList.length; i++) {
+        container.style.opacity = 0;
+        container.style.transform = "translateX(-100%)";
+        await new Promise(r => setTimeout(r, 300));
+
+        container.textContent = "";
+        for (let char of lirikList[i]) {
+          container.textContent += char;
+          await new Promise(r => setTimeout(r, 100));
+        }
+
+        container.style.animation = "muncul 0.8s forwards";
+        await new Promise(r => setTimeout(r, delayAntarLirik[i] || 1000));
+      }
+    }
+
+    playBtn.addEventListener("click", () => {
+      playBtn.style.display = "none";
+      lagu.play();
+      tampilkanLirik();
+    });
+  </script>
+</body>
+</html>
